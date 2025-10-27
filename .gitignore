@@ -1,0 +1,59 @@
+# --- Python ---
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.so
+*.egg-info/
+.eggs/
+dist/
+build/
+
+# --- Django ---
+*.log
+staticfiles/
+media/
+db.sqlite3
+*.sqlite3
+
+# --- Env / secrets ---
+.env
+.env.*
+!.env.example
+
+# --- IDE / OS ---
+.vscode/
+.idea/
+*.iml
+.DS_Store
+Thumbs.db
+
+# --- Docker ---
+*.pid
+.pid
+docker-data/
+dbdata/
+*.orig
+
+# --- Notebooks ---
+.ipynb_checkpoints/
+
+# --- Reports / local data ---
+*.csv
+*.parquet
+*.tsv
+*.xlsx
+!datos.xlsx  # <- si quieres versionar el archivo de prueba, quita este ! o muévelo
+
+# --- Coverage / testing ---
+.coverage
+htmlcov/
+.pytest_cache/
+.tox/
+.mypy_cache/
+
+# --- Node (if any frontend assets) ---
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
