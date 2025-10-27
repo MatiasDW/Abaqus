@@ -1,0 +1,19 @@
+services:
+  db:
+    image: postgres:14
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-portfolios}
+      POSTGRES_USER: ${POSTGRES_USER:-postgres}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-postgres}
+    ports: ["5432:5432"]
+    volumes: [ "dbdata:/var/lib/postgresql/data" ]
+
+  web:
+    build: .
+    env_file: .env
+    ports: ["8000:8000"]
+    volumes: [ ".:/app" ]
+    depends_on: [ db ]
+
+volumes:
+  dbdata:

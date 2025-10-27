@@ -1,0 +1,36 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8"/>
+  <title>{{ portfolio.name }} — Quick Chart</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style> body{font-family:system-ui;max-width:900px;margin:24px auto} canvas{width:100%;height:360px} </style>
+</head>
+<body>
+  <h2>{{ portfolio.name }} — V_t</h2>
+  <p style="opacity:.7">Rango fijo para demo: 2022-02-15 → 2023-02-16</p>
+  <canvas id="valueLine"></canvas>
+
+<script>
+(async function(){
+  // fuerza fechas que sabemos que existen
+  const start = "2022-02-15";
+  const end   = "2023-02-16";
+  const api = `/api/portfolios/{{ portfolio.id }}/metrics?fecha_inicio=${start}&fecha_fin=${end}`;
+
+  const res = await fetch(api);
+  const data = await res.json();
+
+  const labels = data.values.map(p => p.date);
+  const seriesBn = data.values.map(p => p.value / 1e9);
+
+  const ctx = document.getElementById('valueLine').getContext('2d');
+  new Chart(ctx, {
+    type: 'line',
+    data: { labels, datasets: [{ label: 'V_t (USD bn)', data: seriesBn, fill:false, pointRadius:2 }] },
+    options: { responsive:true, interaction:{mode:'index',intersect:false} }
+  });
+})();
+</script>
+</body>
+</html>
